@@ -21,7 +21,7 @@
           r="40"
         />
       </svg>
-      <div class="m-pause" :style="{ display: pause ? 'flex' : 'inherit' }">
+      <div class="m-pause" :style="{ display: pause ? 'flex' : 'none' }">
         <span></span>
         <span></span>
       </div>
@@ -116,45 +116,41 @@ export default {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.2);
 
   border-radius: 10px;
   cursor: pointer;
-  &:hover {
-    .m-pause {
-      display: flex !important;
-    }
-  }
-  .m-pause {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 15px;
-    height: 15px;
 
-    display: none;
-    gap: 5px;
-    & > span {
-      width: 5px;
-      height: 15px;
-      background-color: #fff;
-    }
-  }
   .contain {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
-  }
 
-  .contain svg {
-    transform: rotate(-90deg);
-  }
+    &:hover {
+      .m-pause {
+        display: flex !important;
+      }
+    }
+    .m-pause {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 15px;
+      height: 15px;
+      display: none;
+      gap: 5px;
+      & > span {
+        width: 5px;
+        height: 15px;
+        background-color: #fff;
+      }
+    }
 
-  .path {
-    background-image: url('../assets/logo.png');
+    svg {
+      transform: rotate(-90deg);
+    }
   }
 
   @keyframes run {
