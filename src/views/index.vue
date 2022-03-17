@@ -15,6 +15,7 @@
         fill="none"
         stroke="#fff"
         stroke-width="80"
+        stroke-opacity="0.3"
         cx="100"
         cy="100"
         r="40"
@@ -111,6 +112,10 @@ export default {
   position: relative;
   height: 100px;
   width: 100px;
+  background-image: url('../assets/logo.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   cursor: pointer;
@@ -147,6 +152,10 @@ export default {
 
   .contain svg {
     transform: rotate(-90deg);
+  }
+
+  .path {
+    background-image: url('../assets/logo.png');
   }
 
   @keyframes run {
