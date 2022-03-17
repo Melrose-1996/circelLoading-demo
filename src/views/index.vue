@@ -1,30 +1,30 @@
 <template>
   <div class="index" @click="run()">
-    <svg x="0px" y="0px" width="100%" height="100%" viewBox="0 0 200 200">
-      <circle
-        class=""
-        stroke="#fff"
-        fill="rgba(0, 0, 0, 0.2)"
-        stroke-width="10"
-        cx="100"
-        cy="100"
-        r="80"
-      />
-      <circle
-        class="path"
-        fill="none"
-        stroke="#fff"
-        stroke-width="80"
-        stroke-opacity="0.3"
-        cx="100"
-        cy="100"
-        r="40"
-        transform="rotate(-90, 100, 100)"
-      />
-    </svg>
-    <div class="m-pause" :style="{ display: pause ? 'flex' : 'inherit' }">
-      <span></span>
-      <span></span>
+    <div class="contain">
+      <svg x="0px" y="0px" width="100%" height="100%" viewBox="0 0 200 200">
+        <circle
+          class="total"
+          stroke="#fff"
+          fill="none"
+          stroke-width="10"
+          cx="100"
+          cy="100"
+          r="80"
+        />
+        <circle
+          class="path"
+          fill="none"
+          stroke="rgba(0, 0, 0, 0.2)"
+          stroke-width="70"
+          cx="100"
+          cy="100"
+          r="40"
+        />
+      </svg>
+      <div class="m-pause" :style="{ display: pause ? 'flex' : 'inherit' }">
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       isImmediate: false,
-      number: 0,
+      number: 100,
       time: null,
       pause: false
     }
@@ -62,14 +62,14 @@ export default {
     },
     loopRun () {
       clearTimeout(this.time)
-      if (this.number >= 100) {
+      if (this.number <= 0) {
         clearTimeout(this.time)
         this.time = null
         return
       }
 
       if (!this.isImmediate) {
-        this.number += 20
+        this.number -= 20
         this.circleActive(this.number)
         this.isImmediate = true
         this.run(this.number)
@@ -81,13 +81,13 @@ export default {
         }
 
         this.time = setTimeout(() => {
-          this.number += 20
+          this.number -= 20
           this.circleActive(this.number)
           this.loopRun(this.number)
         }, 1000)
       }
     },
-    circleActive (val = 0) {
+    circleActive (val = 100) {
       const circle = document.querySelector('.path')
       const len = 2 * Math.PI * circle.getAttribute('r')
 
@@ -97,7 +97,7 @@ export default {
 
       const rangeValue = val
       const value = len - (rangeValue / 100) * len
-      circle.style.strokeDashoffset = value
+      circle.style.strokeDashoffset = value * -1
     }
   },
   destroyed () {
@@ -116,7 +116,8 @@ export default {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.2);
+
   border-radius: 10px;
   cursor: pointer;
   &:hover {
@@ -131,7 +132,6 @@ export default {
     transform: translate(-50%, -50%);
     width: 15px;
     height: 15px;
-    // transition: all 0.3 ease-in-out;
 
     display: none;
     gap: 5px;
@@ -146,7 +146,6 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 0.65rem;
     box-sizing: border-box;
   }
 
